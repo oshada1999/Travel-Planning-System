@@ -32,9 +32,14 @@ public class UserController {
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil updateUser(@RequestBody UserDTO userDTO) {
-        userService.updateUser(userDTO);
-        return new ResponseUtil(200, "update", null);
+    public ResponseUtil updateUser(@RequestParam("file") MultipartFile file,
+                                   @RequestParam("user") String user) throws IOException {
+        UserDTO userDTO = new ObjectMapper().readValue(user, UserDTO.class);
+
+        System.out.println("hiii");
+
+        return new ResponseUtil(200, "update", userService.updateUser(userDTO, file));
+
     }
 
     @DeleteMapping(params = {"userId"}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,10 +48,11 @@ public class UserController {
         return new ResponseUtil(200, "deleted", null);
     }
 
-   /* @GetMapping(path = "/{userId}")
-    public ResponseUtil searchUser(@PathVariable int userId) {
-        return new ResponseUtil(200,"Ok",userService.searchUser(userId));
-    }*/
+    @GetMapping("/search")
+    public ResponseUtil searchUser(@RequestParam(value = "nic") String nic) {
+
+        return new ResponseUtil(200,"Ok",userService.searchUser(nic));
+    }
 
     @GetMapping(path = "{email}/{password}")
     public ResponseUtil loginUserFind(@PathVariable("email")String email,@PathVariable("password")String password) throws JsonProcessingException {
@@ -57,8 +63,8 @@ public class UserController {
     }
 
 
-   /* @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getAllUsers() {
         return new ResponseUtil(200, "AllUsersGet", userService.getAllUsers());
-    }*/
+    }
 }

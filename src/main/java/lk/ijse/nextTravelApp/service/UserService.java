@@ -10,15 +10,14 @@ import java.util.List;
 public interface UserService {
     UserDTO saveUser(UserDTO userDTO, MultipartFile file) throws IOException;
 
-    void updateUser(UserDTO userDTO);
+    UserDTO updateUser(UserDTO userDTO, MultipartFile file) throws IOException;
 
     void deleteUser(int userId);
 
 
-
-    UserDTO searchUser(int userId);
-
     List<UserDTO> getAllUsers();
 
     void loginUserFind(String email,String password);
+
+    UserDTO searchUser(String nic);
 }
