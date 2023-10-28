@@ -28,7 +28,7 @@ public class UserController {
 
         UserDTO userDTO = new ObjectMapper().readValue(user, UserDTO.class);
 
-        return new ResponseUtil(200, "save", userService.saveUser(userDTO, file));
+        return new ResponseUtil(200,  "save", userService.saveUser(userDTO, file));
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)

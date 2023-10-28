@@ -1,0 +1,52 @@
+package lk.ijse.nextTravelApp.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lk.ijse.nextTravelApp.dto.UserDTO;
+import lk.ijse.nextTravelApp.dto.VehicleDTO;
+import lk.ijse.nextTravelApp.service.VehicleService;
+import lk.ijse.nextTravelApp.util.ResponseUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
+
+@RestController
+@RequestMapping("api/v1/vehicle")
+@CrossOrigin
+public class VehicleController {
+
+    @Autowired
+    VehicleService vehicleService;
+
+    @ResponseStatus(HttpStatus.CREATED) //201
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil saveVehicle(@RequestPart("file") List<MultipartFile> file,
+                                 @RequestPart("vehicle") VehicleDTO vehicleDTO) throws IOException {
+        return new ResponseUtil(200, "save", vehicleService.saveVehicle(vehicleDTO, file));
+    }
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateVehicle(@RequestPart("file") List<MultipartFile> file,
+                                 @RequestPart("vehicle") VehicleDTO vehicleDTO) throws IOException {
+        return new ResponseUtil(200, "update", vehicleService.updateVehicle(vehicleDTO, file));
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllVehicle() {
+        return new ResponseUtil(200, "AllVehiclesGet", vehicleService.getAllVehicles());
+    }
+    @DeleteMapping(params = {"vehicleId"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteVehicle(@RequestParam int vehicleId) {
+        vehicleService.deleteVehicle(vehicleId);
+        return new ResponseUtil(200, "deleted", null);
+    }
+    @GetMapping("/search")
+    public ResponseUtil searchVehicle(@RequestParam(value = "vehicleId") Integer vehicleId) {
+
+        return new ResponseUtil(200,"Ok",vehicleService.searchVehicle(vehicleId));
+    }
+
+}
