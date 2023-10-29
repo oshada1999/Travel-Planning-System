@@ -99,7 +99,7 @@ public class VehicleServiceImpl implements VehicleService {
 
             return mapper.map(vehicleRepository.save(vehicle), VehicleDTO.class);
         } else {
-            throw new RuntimeException("This ID Already exist!");
+            throw new RuntimeException("Wrong ID !");
         }
     }
 
