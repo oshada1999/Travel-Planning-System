@@ -1,5 +1,6 @@
 package lk.ijse.nextTravelApp.service.impl;
 
+import lk.ijse.nextTravelApp.dto.HotelDTO;
 import lk.ijse.nextTravelApp.dto.UserDTO;
 import lk.ijse.nextTravelApp.dto.VehicleDTO;
 import lk.ijse.nextTravelApp.entity.User;
@@ -118,6 +119,20 @@ public class VehicleServiceImpl implements VehicleService {
             return mapper.map(vehicleRepository.getByVehicleId(vehicleId), VehicleDTO.class);
         } else {
             throw new RuntimeException("Search Failed, No Vehicle Available For " + vehicleId);
+        }
+    }
+
+    @Override
+    public List<VehicleDTO> searchVehicleByCategory(String category) {
+        if (vehicleRepository.existsByVehicleCategory(category)) {
+            if (vehicleRepository.existsByVehicleStatus("Available")){
+                return mapper.map(vehicleRepository.getAllByVehicleCategoryAndVehicleStatus(category,"Available"), new TypeToken<List<VehicleDTO>>() {
+                }.getType());
+            }else {
+                throw new RuntimeException("Search Failed, No Vehicle Available For " + category);
+            }
+        } else {
+            throw new RuntimeException("Search Failed, No Vehicle Available For " + category);
         }
     }
 }

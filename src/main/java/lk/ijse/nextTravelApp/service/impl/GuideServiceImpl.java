@@ -121,4 +121,10 @@ public class GuideServiceImpl implements GuideService {
             throw new RuntimeException("Search Failed, No Guide ID Available For " + guideId);
         }
     }
+
+    @Override
+    public List<GuideDTO> getAllAvailableGuide() {
+        return mapper.map(guideRepository.getAllByGuideStatus("Available"), new TypeToken<List<GuideDTO>>() {
+        }.getType());
+    }
 }

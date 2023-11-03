@@ -104,4 +104,14 @@ public class HotelServiceImpl implements HotelService {
             throw new RuntimeException("Search Failed, No Hotel Available For " + hotelId);
         }
     }
+
+    @Override
+    public List<HotelDTO> searchHotelByCategory(String category) {
+        if (hotelRepository.existsByHotelCategory(category)) {
+            return mapper.map(hotelRepository.getAllByHotelCategory(category), new TypeToken<List<HotelDTO>>() {
+            }.getType());
+        } else {
+            throw new RuntimeException("Search Failed, No Hotel Available For " + category);
+        }
+    }
 }

@@ -49,4 +49,8 @@ public class GuideController {
 
         return new ResponseUtil(200,"Ok",guideService.searchGuide(guideId));
     }
+    @GetMapping("/available")
+    public ResponseUtil getAvailableGuide() {
+        return new ResponseUtil(200,"Ok",guideService.getAllAvailableGuide());
+    }
 }

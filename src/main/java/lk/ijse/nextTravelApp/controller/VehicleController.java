@@ -48,5 +48,10 @@ public class VehicleController {
 
         return new ResponseUtil(200,"Ok",vehicleService.searchVehicle(vehicleId));
     }
+    @GetMapping("/get")
+    public ResponseUtil searchVehicleByCategory(@RequestParam(value = "category") String category) {
+
+        return new ResponseUtil(200,"Ok",vehicleService.searchVehicleByCategory(category));
+    }
 
 }

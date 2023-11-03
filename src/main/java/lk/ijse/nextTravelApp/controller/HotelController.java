@@ -49,5 +49,10 @@ public class HotelController {
 
         return new ResponseUtil(200,"Ok",hotelService.searchHotel(hotelId));
     }
+    @GetMapping("/get")
+    public ResponseUtil searchHotelByCategory(@RequestParam(value = "category") String category) {
+
+        return new ResponseUtil(200,"Ok",hotelService.searchHotelByCategory(category));
+    }
 
 }

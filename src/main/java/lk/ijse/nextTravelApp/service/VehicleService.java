@@ -19,6 +19,8 @@ public interface VehicleService {
 
     VehicleDTO searchVehicle(Integer vehicleId);
 
+    List<VehicleDTO> searchVehicleByCategory(String category);
+
 
    /* UserDTO updateUser(UserDTO userDTO, MultipartFile file) throws IOException;
 

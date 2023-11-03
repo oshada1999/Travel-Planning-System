@@ -16,4 +16,6 @@ public interface HotelService {
     void deleteHotel(int hotelId);
 
     HotelDTO searchHotel(Integer hotelId);
+
+    List<HotelDTO> searchHotelByCategory(String category);
 }
